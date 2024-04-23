@@ -22,6 +22,7 @@ export function WishInput({ addWish }: WishInputProps) {
                 isCompleted: false,
                 date: new Date().toLocaleDateString()
             });
+            
             //Resetea el input
             setInputText('');
         }

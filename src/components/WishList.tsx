@@ -4,31 +4,25 @@ import { WishItem } from './WishItem';
 
 //Propiedades que recibe el componente
 export interface WishListProps {
-    newWish: WishInterface;
+    wishes: WishInterface[];
     onEditWish: (wish: WishInterface) => void;
     onDeleteWish: (wish: WishInterface) => void;
 }
 
 //Componente que se encarga de añadir una nueva nota a la lista
-export function WishList({ newWish }: WishListProps) {
-    //Controla las notas que se han añadido
-    const [wishes, setWishes] = useState<WishInterface[]>([]);
-
+export function WishList({ wishes, onEditWish, onDeleteWish }: WishListProps) {
     //Añade la nueva nota a la lista
     useEffect(() => {
-        if (newWish) {
-            setWishes(prevWishes => [...prevWishes, newWish]);
-        }
-    }, [newWish]);
 
-    //Edita una nota
+    }, [wishes]);
+
     const editWish = (editedWish: WishInterface) => {
-        setWishes(prevWishes => prevWishes.map(wish => wish.id === editedWish.id ? editedWish : wish));
+        onEditWish(editedWish);
     }
 
     //Elimina una nota
     const deleteWish = (deletedWish: WishInterface) => {
-        setWishes(prevWishes => prevWishes.filter(wish => wish.id !== deletedWish.id));
+        onDeleteWish(deletedWish);
     }
 
     //Renderiza el componente

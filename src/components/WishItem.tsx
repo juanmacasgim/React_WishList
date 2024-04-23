@@ -3,28 +3,24 @@ import { WishInterface } from '../interfaces/WishInterface';
 
 //Componente que se encarga de mostrar una nota
 export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterface, onEditWish: (wish: WishInterface) => void, onDeleteWish: (wish: WishInterface) => void }) {
-    //Controla si se está editando la nota
     const [isEditing, setIsEditing] = useState(false);
-    //Controla el texto editado
     const [editedText, setEditedText] = useState(wish.text);
 
-    //Cuando se pulsa en editar se activa el modo edición
     const handleEdit = () => {
         setIsEditing(true);
     }
 
-    //Cuando se pulsa en guardar se guarda la nota editada
     const handleSave = () => {
         onEditWish({ ...wish, text: editedText });
         setIsEditing(false);
     }
 
-    //Cuando se pulsa en eliminar se elimina la nota
     const handleDelete = () => {
+        console.log("Borrando");
+        console.log(wish);
         onDeleteWish(wish);
     }
 
-    //Renderiza el componente
     return (
         <section>
             {isEditing ? (

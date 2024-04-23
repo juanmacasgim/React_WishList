@@ -1,4 +1,5 @@
 export const SaveList = ({ wishList }: { wishList: any }) => {
+    console.log("Guardando");
     window.localStorage.setItem('wishList', JSON.stringify(wishList));
 }
 
