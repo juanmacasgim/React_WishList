@@ -39,3 +39,26 @@
   .read-the-docs {
     color: #888;
   }
+
+  .WishItem {
+    border: 2px solid #333;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+
+}
+
+.WishItem label {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.WishItem .date {
+    text-align: right;
+    bottom: 5px;
+    left: 5px;
+    font-size: 12px;
+}

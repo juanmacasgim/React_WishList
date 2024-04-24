@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { WishInterface } from './interfaces/WishInterface';
 import { WishInput } from './components/WishInput';
-import { WishItem } from './components/WishItem';
 import { WishList } from './components/WishList';
 import { SaveList, LoadList } from './logic/storage';
 import { Button } from 'react-bootstrap';
 
 
 export function App() {
-    const [wish, setWish] = useState<WishInterface>();
     const [wishes, setWishes] = useState<WishInterface[]>([]);
 
     useEffect(() => {

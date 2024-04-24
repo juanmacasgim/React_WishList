@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { WishInterface } from '../interfaces/WishInterface';
 import { WishItem } from './WishItem';
 

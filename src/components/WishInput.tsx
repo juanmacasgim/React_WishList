@@ -1,5 +1,4 @@
-import { useState, useEffect, SetStateAction } from 'react';
-import { WishItem } from './WishItem';
+import { useState, SetStateAction } from 'react';
 import { WishInterface } from '../interfaces/WishInterface';
 
 //Propiedades que recibe el componente

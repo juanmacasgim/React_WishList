@@ -22,7 +22,7 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
     }
 
     return (
-        <section>
+        <section className="WishItem">
             {isEditing ? (
                 <>
                     <input type="text" value={editedText} onChange={(e) => setEditedText(e.target.value)} />
