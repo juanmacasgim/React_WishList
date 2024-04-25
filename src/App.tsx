@@ -4,7 +4,6 @@ import { WishInterface } from './interfaces/WishInterface';
 import { WishInput } from './components/WishInput';
 import { WishList } from './components/WishList';
 import { SaveList, LoadList } from './logic/storage';
-import { Button } from 'react-bootstrap';
 
 
 export function App() {

@@ -4,8 +4,8 @@ import { WishInterface } from '../interfaces/WishInterface';
 //Componente que se encarga de mostrar una nota
 export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterface, onEditWish: (wish: WishInterface) => void, onDeleteWish: (wish: WishInterface) => void }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [editedText, setEditedText] = useState(wish.text);
-    const [editedCheck, setEditedCheck] = useState(wish.isCompleted);
+    const [editedText, ] = useState(wish.text);
+    const [editedCheck, ] = useState(wish.isCompleted);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -37,6 +37,7 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
                 <>
                     <div>
                         <input type="checkbox" checked={wish.isCompleted} onChange={() => onEditWish({ ...wish, isCompleted: !wish.isCompleted })} /> 
+                        <label>{wish.title}</label>
                         <label>{wish.text}</label>
                         <label onClick={handleEdit}>📝</label>
                         <label onClick={handleDelete}>🗑️</label>
