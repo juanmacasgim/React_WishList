@@ -19,6 +19,11 @@ export function App() {
         
     }, [wishes]);
 
+    const forceLoad = () => {
+        const wishList = LoadList();
+        setWishes(wishList);
+    }
+
     const handleAddWish = (newWish: WishInterface) => {
         setWishes([...wishes, newWish]);
     }
@@ -43,7 +48,8 @@ export function App() {
         <div>
             <WishInput addWish={handleAddWish} />
             <WishList wishes={wishes} onEditWish={handleEditWish} onDeleteWish={handleDeleteWish} />
-            <Button onClick={() => SaveList({ wishList: wishes })}>Save</Button>
+            <button className='Button' onClick={() => SaveList({ wishList: wishes })}>Save</button>
+            <button className='Button' onClick={() => forceLoad()}>Load</button>
         </div>
     );
 }

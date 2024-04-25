@@ -36,6 +36,7 @@ export function WishInput({ addWish }: WishInputProps) {
     return (
         <section>
             <input
+                className='Input'
                 type="text"
                 placeholder="Introduce tu nota"
                 onChange={handleInputChange}

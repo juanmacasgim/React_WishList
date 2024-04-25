@@ -27,7 +27,7 @@ export function WishList({ wishes, onEditWish, onDeleteWish }: WishListProps) {
 
     //Renderiza el componente
     return (
-        <section>
+        <section className='Wishlist'>
             {wishes.map(wish => (
                 <WishItem
                     key={wish.id}
