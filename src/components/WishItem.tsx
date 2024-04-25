@@ -5,6 +5,7 @@ import { WishInterface } from '../interfaces/WishInterface';
 export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterface, onEditWish: (wish: WishInterface) => void, onDeleteWish: (wish: WishInterface) => void }) {
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(wish.text);
+    const [editedCheck, setEditedCheck] = useState(wish.isCompleted);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -13,6 +14,10 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
     const handleSave = () => {
         onEditWish({ ...wish, text: editedText });
         setIsEditing(false);
+    }
+
+    const handleCheck = () => {
+        onEditWish({ ...wish, isCompleted: editedCheck});
     }
 
     const handleDelete = () => {
@@ -25,12 +30,13 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
         <section className="WishItem">
             {isEditing ? (
                 <>
-                    <input type="text" value={editedText} onChange={(e) => setEditedText(e.target.value)} />
+                    <input type="text" value={editedText} onClick={handleCheck}/>
                     <button onClick={handleSave}>Save</button>
                 </>
             ) : (
                 <>
                     <div>
+                        <input type="checkbox" checked={wish.isCompleted} onChange={() => onEditWish({ ...wish, isCompleted: !wish.isCompleted })} /> 
                         <label>{wish.text}</label>
                         <label onClick={handleEdit}>📝</label>
                         <label onClick={handleDelete}>🗑️</label>
