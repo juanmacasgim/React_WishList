@@ -52,18 +52,42 @@
   margin-bottom: 10px;
 }
 
+.WishItem .wish-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .WishItem label {
+  font-family: Arial, sans-serif;
   font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
   margin-left: 10px;
 }
 
-.WishItem .date {
-  text-align: right;
-  bottom: 5px;
-  left: 5px;
-  font-size: 12px;
+.WishItem .wish-text {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.WishItem .completed {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+
+.WishItem .wish-date {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.WishItem .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .Wishlist {
@@ -71,6 +95,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.WishItem label.text {
+  font-size: 16px;
+  margin-top: 5px;
+  display: flex;
+}
+
+.WishItem .wish-editbuttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.WishItem .wish-button {
+  cursor: pointer;
 }
 
 .divinput {
@@ -91,7 +131,17 @@
   margin-bottom: 10px;
 }
 
-.Input {
+.input-text {
+  border: 2px solid #333;
+  padding: 10px;
+  border-radius: 5px;
+  width: 300px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.textarea {
   border: 2px solid #333;
   padding: 10px;
   border-radius: 5px;

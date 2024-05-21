@@ -15,17 +15,20 @@ export function WishInput({ addWish }: WishInputProps) {
     //Función que se encarga de añadir una nueva nota
     const enterWish = (event: { key: string; }) => {
         if (event.key === 'Enter' && inputText.trim() !== '') {
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + 1);
+            const dateTimeString = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
             //Añade una nueva nota
             addWish({
                 id: Math.random().toString(),
                 title: inputTitle,
                 text: inputText,
                 isCompleted: false,
-                date: new Date().toLocaleDateString()
+                date: dateTimeString
             });
 
             //Resetea el input
-            setInputText('');
+            setInputTitle('');
             setInputText('');
         }
     }
@@ -45,16 +48,15 @@ export function WishInput({ addWish }: WishInputProps) {
                 <div className='divborder'>
                     <h1>Introduce tu nota</h1>
                     <input
-                        className='Input'
+                        className='input-text'
                         type="text"
                         placeholder="Introduce el título de tu nota"
                         onChange={handleInputTitleChange}
                         onKeyUp={enterWish}
                         value={inputTitle}
                     />
-                    <input
-                        className='Input'
-                        type="text"
+                    <textarea
+                        className='input-text'
                         placeholder="Introduce la descripcion"
                         onChange={handleInputTextChange}
                         onKeyUp={enterWish}
