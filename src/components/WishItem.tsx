@@ -4,30 +4,35 @@ import { WishInterface } from '../interfaces/WishInterface';
 //Componente que se encarga de mostrar una nota
 export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterface, onEditWish: (wish: WishInterface) => void, onDeleteWish: (wish: WishInterface) => void }) {
     const [isEditing, setIsEditing] = useState(false);
+    const [editedTitle, setEditedTitle] = useState(wish.title);
     const [editedText, setEditedText] = useState(wish.text);
-    const [editedCheck,] = useState(wish.isCompleted);
+    const [editedCheck, setEditedCheck] = useState(wish.isCompleted);
 
     const handleEdit = () => {
         setIsEditing(true);
     }
 
     const handleSave = () => {
-        onEditWish({ ...wish, text: editedText });
+        onEditWish({ ...wish,title: editedTitle, text: editedText, isCompleted: editedCheck});
         setIsEditing(false);
     }
 
     const handleCheck = () => {
-        onEditWish({ ...wish, isCompleted: editedCheck });
+        setEditedCheck(!editedCheck);
+        onEditWish({ ...wish, isCompleted: !wish.isCompleted });
     }
 
     const handleDelete = () => {
         console.log("Borrando");
-        console.log(wish);
         onDeleteWish(wish);
     }
 
+    const handleInputChangeTitle = (event: { target: { value: SetStateAction<string>; }; }) => {
+        setEditedTitle(event.target.value);
+    }
+
     //Función que se encarga de controlar el texto que se introduce en el input
-    const handleInputChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    const handleInputChangeText = (event: { target: { value: SetStateAction<string>; }; }) => {
         setEditedText(event.target.value);
     }
 
@@ -35,12 +40,13 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
         <section className="WishItem">
             {isEditing ? (
                 <>
-                    <input type="text" onChange={handleInputChange} value={editedText} onClick={handleCheck} />
+                    <input type="title" onChange={handleInputChangeTitle} value={editedTitle} onClick={handleCheck} />
+                    <input type="text" onChange={handleInputChangeText} value={editedText} onClick={handleCheck} />
                     <button onClick={handleSave}>Save</button>
                 </>
             ) : (
                 <>
-                    <label className="wish-date">{wish.date}</label>
+                    <label className="wish-date">{wish.date.toLocaleString()}</label>
                     <div className="wish-content">
                         <div className="wish-text">
                             <label className="title">{wish.title}</label>

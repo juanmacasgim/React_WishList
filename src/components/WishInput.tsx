@@ -16,18 +16,17 @@ export function WishInput({ addWish }: WishInputProps) {
     const enterWish = (event: { key: string; }) => {
         if (event.key === 'Enter' && inputText.trim() !== '') {
             const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() + 1);
             const dateTimeString = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
-            //Añade una nueva nota
+            // Añade una nueva nota
             addWish({
-                id: Math.random().toString(),
+                id: 0,
                 title: inputTitle,
                 text: inputText,
                 isCompleted: false,
                 date: dateTimeString
             });
 
-            //Resetea el input
+            // Resetea el input
             setInputTitle('');
             setInputText('');
         }

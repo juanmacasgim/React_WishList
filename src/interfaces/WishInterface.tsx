@@ -1,5 +1,5 @@
 export interface WishInterface {
-    id: string;
+    id: number;
     title: string;
     text: string;
     isCompleted: boolean;
