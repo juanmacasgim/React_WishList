@@ -8,11 +8,11 @@ export interface WishInputProps {
 
 //Componente que se encarga de añadir una nueva nota
 export function WishInput({ addWish }: WishInputProps) {
-    //Controla el texto que se introduce en el input
+    //Controla el texto que se introduce en los inputs title y text
     const [inputTitle, setInputTitle] = useState('');
     const [inputText, setInputText] = useState('');
 
-    //Función que se encarga de añadir una nueva nota
+    //Función que se encarga de añadir una nueva nota cuando se pulsa la tecla Enter
     const enterWish = (event: { key: string; }) => {
         if (event.key === 'Enter' && inputText.trim() !== '') {
             const currentDate = new Date();
@@ -26,13 +26,13 @@ export function WishInput({ addWish }: WishInputProps) {
                 date: dateTimeString
             });
 
-            // Resetea el input
+            // Resetea los inputs title y text
             setInputTitle('');
             setInputText('');
         }
     }
 
-    //Función que se encarga de controlar el texto que se introduce en el input
+    //Función que se encarga de controlar el texto que se introduce en los inputs title y text
     const handleInputTitleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setInputTitle(event.target.value);
     }

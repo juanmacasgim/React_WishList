@@ -9,18 +9,19 @@ export interface WishListProps {
     onDeleteWish: (wish: WishInterface) => void;
 }
 
-//Componente que se encarga de añadir una nueva nota a la lista
+//Componente que se encarga de mostrar todas las notas
 export function WishList({ wishes, onEditWish, onDeleteWish }: WishListProps) {
     //Añade la nueva nota a la lista
     useEffect(() => {
 
     }, [wishes]);
 
+    //Edita una nota de la lista
     const editWish = (editedWish: WishInterface) => {
         onEditWish(editedWish);
     }
 
-    //Elimina una nota
+    //Elimina una nota de la lista
     const deleteWish = (deletedWish: WishInterface) => {
         onDeleteWish(deletedWish);
     }

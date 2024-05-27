@@ -3,8 +3,9 @@ import './App.css';
 import { WishInterface } from './interfaces/WishInterface';
 import { WishInput } from './components/WishInput';
 import { WishList } from './components/WishList';
-import { SaveList, LoadList } from './logic/storage';
+import { exportCSV, /* importCSV */ } from './logic/storage';
 import { getAllWishes, createWish, updateWish, deleteWish } from './api/services';
+import MyButton from './components/MyButton';
 
 
 export function App() {
@@ -14,8 +15,9 @@ export function App() {
     const [sortByDateAsc, setSortByDateAsc] = useState(true);
     //Texto de búsqueda
     const [searchText, setSearchText] = useState('');
-    //Lista de deseos filtrada
-    const filteredWishes = wishes.filter(wish => wish.text.toLowerCase().includes(searchText.toLowerCase()));
+    //Lista de deseos filtrada por texto de búsqueda, filtra tanto el título como el texto
+    const filteredWishes = wishes.filter(wish => wish.text.toLowerCase().includes(searchText.toLowerCase()) ||
+                            wish.title.toLowerCase().includes(searchText.toLowerCase()));
 
     //Carga la lista de deseos al iniciar la aplicación
     useEffect(() => {
@@ -36,10 +38,10 @@ export function App() {
     }, [wishes]);
 
     //Forzar la carga de la lista de deseos
-    const forceLoad = () => {
+    /* const forceLoad = () => {
         const wishList = LoadList();
         setWishes(wishList);
-    }
+    } */
 
     //Añade un nuevo deseo
     const handleAddWish = async (newWish: WishInterface) => {
@@ -92,7 +94,7 @@ export function App() {
         setSortByDateAsc(!sortByDateAsc);
     };
 
-    // Función para convertir una fecha de String a un objeto Date
+    //Función para convertir una fecha de String a un objeto Date
     function convertToDate(dateString: string) {
         // Divide la cadena en fecha y hora
         const [date, time] = dateString.split(' ');
@@ -105,10 +107,24 @@ export function App() {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second));
     }
 
+    /* const handleImportCSV = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            importCSV(file, setWishes);
+        }
+    }; */
+
     return (
         <div>
-            <button className='Button' onClick={() => SaveList({ wishList: wishes })}>Save</button>
-            <button className='Button' onClick={() => forceLoad()}>Load</button>
+            <MyButton variant="contained" onClick={() => exportCSV({ wishList: wishes })} >
+                    Save CSV
+            </MyButton >
+            {/* <input
+                className='Button'
+                type="file"
+                accept=".csv"
+                onChange={handleImportCSV}
+            /> */}
             <input
                 className='input-text'
                 type="text"
@@ -116,7 +132,9 @@ export function App() {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
             />
-            <button className='Button' onClick={handleSortByDate}>Sort by Date</button>
+            <MyButton variant="contained" onClick={handleSortByDate}>
+                Sort by Date
+            </MyButton >
             <WishInput addWish={handleAddWish} />
             <WishList wishes={filteredWishes} onEditWish={handleEditWish} onDeleteWish={handleDeleteWish} />
         </div>
