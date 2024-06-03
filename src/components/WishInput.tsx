@@ -11,6 +11,7 @@ export function WishInput({ addWish }: WishInputProps) {
     //Controla el texto que se introduce en los inputs title y text
     const [inputTitle, setInputTitle] = useState('');
     const [inputText, setInputText] = useState('');
+    const [inputType, setInputType] = useState('Comida');
 
     //Función que se encarga de añadir una nueva nota cuando se pulsa la tecla Enter
     const enterWish = (event: { key: string; }) => {
@@ -22,6 +23,7 @@ export function WishInput({ addWish }: WishInputProps) {
                 id: 0,
                 title: inputTitle,
                 text: inputText,
+                type: inputType,
                 isCompleted: false,
                 date: dateTimeString
             });
@@ -29,6 +31,7 @@ export function WishInput({ addWish }: WishInputProps) {
             // Resetea los inputs title y text
             setInputTitle('');
             setInputText('');
+            setInputType('Comida');
         }
     }
 
@@ -61,6 +64,19 @@ export function WishInput({ addWish }: WishInputProps) {
                         onKeyUp={enterWish}
                         value={inputText}
                     />
+                    <select
+                        className='input-text'
+                        value={inputType}
+                        onChange={(e) => setInputType(e.target.value)}
+                    >
+                        <option value="Comida">Comida</option>
+                        <option value="Viaje">Viaje</option>
+                        <option value="Tarea">Tarea</option>
+                        <option value="Compra">Compra</option>
+                        <option value="Evento">Evento</option>
+                        <option value="Cita">Cita</option>
+                        <option value="Otro">Otro</option>
+                    </select>
                 </div>
             </div>
         </section>

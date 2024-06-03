@@ -5,6 +5,8 @@ import { WishInput } from './components/WishInput';
 import { WishList } from './components/WishList';
 import { exportCSV, /* importCSV */ } from './logic/storage';
 import { getAllWishes, createWish, updateWish, deleteWish } from './api/services';
+import SaveIcon from '@mui/icons-material/Save';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 import MyButton from './components/MyButton';
 
 
@@ -35,13 +37,7 @@ export function App() {
     //Guarda la lista de deseos al modificarla
     useEffect(() => {
 
-    }, [wishes]);
-
-    //Forzar la carga de la lista de deseos
-    /* const forceLoad = () => {
-        const wishList = LoadList();
-        setWishes(wishList);
-    } */
+    }, [wishes]); 
 
     //Añade un nuevo deseo
     const handleAddWish = async (newWish: WishInterface) => {
@@ -107,24 +103,11 @@ export function App() {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second));
     }
 
-    /* const handleImportCSV = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            importCSV(file, setWishes);
-        }
-    }; */
-
     return (
         <div>
-            <MyButton variant="contained" onClick={() => exportCSV({ wishList: wishes })} >
+            <MyButton variant="contained" onClick={() => exportCSV({ wishList: wishes })} endIcon={<SaveIcon />} >
                     Save CSV
             </MyButton >
-            {/* <input
-                className='Button'
-                type="file"
-                accept=".csv"
-                onChange={handleImportCSV}
-            /> */}
             <input
                 className='input-text'
                 type="text"
@@ -132,7 +115,7 @@ export function App() {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
             />
-            <MyButton variant="contained" onClick={handleSortByDate}>
+            <MyButton variant="contained" onClick={handleSortByDate} endIcon={<ImportExportIcon />}>
                 Sort by Date
             </MyButton >
             <WishInput addWish={handleAddWish} />

@@ -14,6 +14,7 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
     //Controla el texto que se introduce en los inputs title y text
     const [editedTitle, setEditedTitle] = useState(wish.title);
     const [editedText, setEditedText] = useState(wish.text);
+    const [editedType, setEditedType] = useState(wish.type);
     //Controla si la nota está completada
     const [editedCheck, setEditedCheck] = useState(wish.isCompleted);
 
@@ -85,6 +86,19 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
                         onClick={handleCheck}
                         onKeyUp={enterWish}
                     />
+                    <select
+                        className='input-edit'
+                        value={editedType}
+                        onChange={(e) => setEditedType(e.target.value)}
+                    >
+                        <option value="Comida">Comida</option>
+                        <option value="Viaje">Viaje</option>
+                        <option value="Tarea">Tarea</option>
+                        <option value="Compra">Compra</option>
+                        <option value="Evento">Evento</option>
+                        <option value="Cita">Cita</option>
+                        <option value="Otro">Otro</option>
+                    </select>
                     <br />
                     <MyButton variant="contained" onClick={handleSave} endIcon={<SendIcon />}>
                         Actualizar
@@ -92,7 +106,10 @@ export function WishItem({ wish, onEditWish, onDeleteWish }: { wish: WishInterfa
                 </>
             ) : (
                 <>
-                    <label className="wish-date">{"Creado el: "+wish.date.toLocaleString()}</label>
+                    <div className="wish-item">
+                        <label className="wish-type">{wish.type}</label>
+                        <label className="wish-date">{"Creado el: " + wish.date.toLocaleString()}</label>
+                    </div>
                     <div className="wish-content">
                         <div className="wish-text">
                             <label className="title">{wish.title}</label>

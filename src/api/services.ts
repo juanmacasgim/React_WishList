@@ -16,6 +16,14 @@ export const getAllWishes = async () => {
 };
 
 /**
+ * Devuelve un deseo por su ID
+ */
+export const getWishById = async (id: number) => {
+    const response = await axios.get<WishInterface>(`${API_URL}/wishes/${id}`);
+    return response.data;
+};
+
+/**
  * Crea un nuevo deseo
  */
 export const createWish = async (wish: WishInterface) => {
@@ -23,17 +31,10 @@ export const createWish = async (wish: WishInterface) => {
         id : wish.id,
         title: wish.title,
         text: wish.text,
+        type: wish.type,
         isCompleted: wish.isCompleted,
         date : wish.date
     });
-    return response.data;
-};
-
-/**
- * Devuelve un deseo por su ID
- */
-export const getWishById = async (id: number) => {
-    const response = await axios.get<WishInterface>(`${API_URL}/wishes/${id}`);
     return response.data;
 };
 
@@ -45,6 +46,7 @@ export const updateWish = async (id: number, wish: WishInterface) => {
         id : wish.id,
         title: wish.title,
         text: wish.text,
+        type: wish.type,
         isCompleted: wish.isCompleted,
         date : wish.date
     });

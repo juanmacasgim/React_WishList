@@ -74,6 +74,19 @@
   font-weight: bold;
 }
 
+.wish-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wish-item .wish-type {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 
 .WishItem .wish-date {
   display: flex;
