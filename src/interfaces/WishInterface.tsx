@@ -5,4 +5,5 @@ export interface WishInterface {
     type: string;
     isCompleted: boolean;
     date: string;
+    user_id: number;
 }

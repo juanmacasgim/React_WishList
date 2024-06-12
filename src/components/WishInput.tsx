@@ -1,37 +1,68 @@
-import { useState, SetStateAction } from 'react';
+import React, { useEffect, useState, SetStateAction } from 'react';
 import { WishInterface } from '../interfaces/WishInterface';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MyButton from '../components/MyButton';
+import Snackbar from '@mui/material/Snackbar';
+import { useNavigate } from 'react-router-dom';
 
 //Propiedades que recibe el componente
 export interface WishInputProps {
-    addWish: (wish: WishInterface) => void;
+    addorupdateWish: (wish: WishInterface) => void;
+    deleteWish: (id: number) => void;
+    wish?: WishInterface | null;
 }
 
 //Componente que se encarga de añadir una nueva nota
-export function WishInput({ addWish }: WishInputProps) {
+export function WishInput({ addorupdateWish, deleteWish, wish }: WishInputProps) {
     //Controla el texto que se introduce en los inputs title y text
     const [inputTitle, setInputTitle] = useState('');
     const [inputText, setInputText] = useState('');
     const [inputType, setInputType] = useState('Comida');
+    const [open, setOpen] = useState(false);
+    const [valid, setValid] = useState(false);
+    const navigate = useNavigate();
 
-    //Función que se encarga de añadir una nueva nota cuando se pulsa la tecla Enter
-    const enterWish = (event: { key: string; }) => {
-        if (event.key === 'Enter' && inputText.trim() !== '') {
+    useEffect(() => {
+        if (wish) {
+            setInputTitle(wish.title);
+            setInputText(wish.text);
+            setInputType(wish.type);
+        }
+    }, [wish]);
+
+    const addOrUpdateWish = () => {
+        if (inputText.trim() === '' || inputTitle.trim() === '') {
+            setOpen(true);
+        } else {
             const currentDate = new Date();
             const dateTimeString = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
-            // Añade una nueva nota
-            addWish({
-                id: 0,
+            addorupdateWish({
+                id: wish ? wish.id : 0,
                 title: inputTitle,
                 text: inputText,
                 type: inputType,
                 isCompleted: false,
-                date: dateTimeString
+                date: dateTimeString,
+                user_id: wish ? wish.user_id : 0
             });
+        }
 
-            // Resetea los inputs title y text
-            setInputTitle('');
-            setInputText('');
-            setInputType('Comida');
+    }
+
+    const enterWish = (event: { key: string; }) => {
+        if (event.key === 'Enter' && inputText.trim() !== '') {
+            addOrUpdateWish();
+        }
+    }
+
+    const handleSave = () => {
+        addOrUpdateWish();
+    }
+
+    const handleDelete = () => {
+        if (wish) {
+            deleteWish(wish.id);
         }
     }
 
@@ -78,6 +109,23 @@ export function WishInput({ addWish }: WishInputProps) {
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
+                <div>
+                    <MyButton variant="contained" onClick={handleSave} endIcon={<SendIcon />}>
+                        {wish ? 'Actualizar' : 'Añadir'}
+                    </MyButton >
+                    {wish && (
+                        <MyButton variant="contained" onClick={handleDelete} endIcon={<DeleteIcon />}>
+                            Eliminar
+                        </MyButton >
+                    )}
+                </div>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    onClose={() => setOpen(false)}
+                    message="No se puede guardar una nota sin título o descripción"
+                />
             </div>
         </section>
     );

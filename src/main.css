@@ -1,0 +1,12 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /* Asegúrate de que la altura de tu navbar sea correcta */
+  height: 50px;
+}
+
+.content {
+  /* El margen superior debe ser igual a la altura de tu navbar */
+  margin-top: 50px;
+}

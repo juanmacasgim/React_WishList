@@ -4,10 +4,12 @@ import { WishInterface } from './interfaces/WishInterface';
 import { WishInput } from './components/WishInput';
 import { WishList } from './components/WishList';
 import { exportCSV, /* importCSV */ } from './logic/storage';
-import { getAllWishes, createWish, updateWish, deleteWish } from './api/services';
+import { getAllUserWishes, updateWish, deleteWish } from './api/services';
 import SaveIcon from '@mui/icons-material/Save';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import MyButton from './components/MyButton';
+import { Navbar } from './components/Navbar';
+import Snackbar from '@mui/material/Snackbar';
 
 
 export function App() {
@@ -19,13 +21,14 @@ export function App() {
     const [searchText, setSearchText] = useState('');
     //Lista de deseos filtrada por texto de búsqueda, filtra tanto el título como el texto
     const filteredWishes = wishes.filter(wish => wish.text.toLowerCase().includes(searchText.toLowerCase()) ||
-                            wish.title.toLowerCase().includes(searchText.toLowerCase()));
+        wish.title.toLowerCase().includes(searchText.toLowerCase()));
+    const [open, setOpen] = useState(false);
 
     //Carga la lista de deseos al iniciar la aplicación
     useEffect(() => {
         const fetchWishes = async () => {
             try {
-                const wishList = await getAllWishes();
+                const wishList = await getAllUserWishes();
                 setWishes(wishList);
             } catch (error) {
                 console.error('Error loading wishes:', error);
@@ -37,17 +40,7 @@ export function App() {
     //Guarda la lista de deseos al modificarla
     useEffect(() => {
 
-    }, [wishes]); 
-
-    //Añade un nuevo deseo
-    const handleAddWish = async (newWish: WishInterface) => {
-        try {
-            const createdWish = await createWish(newWish);
-            setWishes([...wishes, createdWish.data]);
-        } catch (error) {
-            console.error('Error adding wish:', error);
-        }
-    }
+    }, [wishes]);
 
     //Edita un deseo
     const handleEditWish = async (editedWish: WishInterface) => {
@@ -66,6 +59,7 @@ export function App() {
             await deleteWish(deletedWish.id);
             const newWishes = wishes.filter(wish => wish.id !== deletedWish.id);
             setWishes(newWishes);
+            setOpen(true);
         } catch (error) {
             console.error('Error deleting wish:', error);
         }
@@ -105,21 +99,29 @@ export function App() {
 
     return (
         <div>
-            <MyButton variant="contained" onClick={() => exportCSV({ wishList: wishes })} endIcon={<SaveIcon />} >
+            <div className="container">
+                <input
+                    className='input-text flex-item'
+                    type="text"
+                    placeholder="Buscar deseos..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                />
+                <MyButton variant="contained" onClick={handleSortByDate} endIcon={<ImportExportIcon />}>
+                    Sort by Date
+                </MyButton >
+                <MyButton variant="contained" onClick={() => exportCSV({ wishList: wishes })} endIcon={<SaveIcon />} >
                     Save CSV
-            </MyButton >
-            <input
-                className='input-text'
-                type="text"
-                placeholder="Buscar deseos..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-            />
-            <MyButton variant="contained" onClick={handleSortByDate} endIcon={<ImportExportIcon />}>
-                Sort by Date
-            </MyButton >
-            <WishInput addWish={handleAddWish} />
+                </MyButton >
+            </div>
             <WishList wishes={filteredWishes} onEditWish={handleEditWish} onDeleteWish={handleDeleteWish} />
+            <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    onClose={() => setOpen(false)}
+                    message="Nota eliminada correctamente"
+            />
         </div>
     );
 }
