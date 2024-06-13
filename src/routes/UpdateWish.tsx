@@ -14,6 +14,10 @@ export function UpdateWish() {
     useEffect(() => {
         getWishById(wishIdNumber).then(wishData => {
             setWish(wishData);
+        }).catch(error => {
+            if (error.response.status === 404) {
+                navigate('/wish/add');
+            }
         });
     }, [wishId]);
 
