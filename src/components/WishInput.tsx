@@ -4,7 +4,6 @@ import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MyButton from '../components/MyButton';
 import Snackbar from '@mui/material/Snackbar';
-import { useNavigate } from 'react-router-dom';
 
 //Propiedades que recibe el componente
 export interface WishInputProps {
@@ -20,8 +19,6 @@ export function WishInput({ addorupdateWish, deleteWish, wish }: WishInputProps)
     const [inputText, setInputText] = useState('');
     const [inputType, setInputType] = useState('Comida');
     const [open, setOpen] = useState(false);
-    const [valid, setValid] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (wish) {
@@ -48,12 +45,6 @@ export function WishInput({ addorupdateWish, deleteWish, wish }: WishInputProps)
             });
         }
 
-    }
-
-    const enterWish = (event: { key: string; }) => {
-        if (event.key === 'Enter' && inputText.trim() !== '') {
-            addOrUpdateWish();
-        }
     }
 
     const handleSave = () => {
@@ -85,14 +76,12 @@ export function WishInput({ addorupdateWish, deleteWish, wish }: WishInputProps)
                         type="text"
                         placeholder="Introduce el título de tu nota"
                         onChange={handleInputTitleChange}
-                        onKeyUp={enterWish}
                         value={inputTitle}
                     />
                     <textarea
                         className='input-text'
                         placeholder="Introduce la descripcion"
                         onChange={handleInputTextChange}
-                        onKeyUp={enterWish}
                         value={inputText}
                     />
                     <select

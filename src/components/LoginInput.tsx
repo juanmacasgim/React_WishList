@@ -44,13 +44,14 @@ export function LoginInput() {
             const response = await login(user);
 
             if (response.status === 1) {
-                navigate('/wish/home');
                 setMessage('Usuario registrado correctamente');
                 setOpen(true);
+                setTimeout(() => navigate('/wish/home'), 500);
             } else {
-                setMessage('Algo salió mal, inténtalo de nuevo');
+                setMessage('Datos incorrectos, inténtalo de nuevo');
                 setOpen(true);
             }
+            
         }
     }
 

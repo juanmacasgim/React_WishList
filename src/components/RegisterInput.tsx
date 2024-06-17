@@ -51,13 +51,16 @@ export function RegisterInput() {
                 const response = await register(user);
 
                 if (response.status === 1) {
-                    navigate('/wish/home');
                     setMessage('Usuario registrado correctamente');
+                    setOpen(true);
+                    setTimeout(() => navigate('/wish/home'), 500);
+                } else if (response.status === 0) {
+                    setMessage('El correo ya está registrado');
                     setOpen(true);
                 } else {
                     setMessage('Algo salió mal, inténtalo de nuevo');
                     setOpen(true);
-                }     
+                }
             } else {
                 setMessage('Las contraseñas no coinciden');
                 setOpen(true);
